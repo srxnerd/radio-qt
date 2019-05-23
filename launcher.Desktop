@@ -1,0 +1,6 @@
+[Desktop Entry]
+version= 1.0
+Name = player radiojavan-qt
+Exec = /home/sti/radiojavan-gui/raddiojavan-qt.py
+Icon = /home/sti/radiojavan-gui/icon/icp.png
+Type = Application
