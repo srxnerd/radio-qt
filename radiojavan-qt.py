@@ -12,21 +12,25 @@ import string
 from colored import fore, back, style
 import sys
 import wget
+import requests
+from bs4 import BeautifulSoup
+
 import selenium.webdriver.opera
 import pyfiglet
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 link = "https://www.radiojavan.com/playlists/playlist/mp3/854b87855624"
-driver =webdriver.Chrome("/home/sti/down_git/chromedriver")
-driver.set_window_size(800, 800)
+driver = webdriver.Chrome("/home/sti/down_git/chromedriver")
 driver.get(link)
-time.sleep(2)
+driver.set_window_size(800, 700)
 elem = driver.find_element_by_xpath("""//*[@id="navContainer"]/div/a[1]""")
 actions = ActionChains(driver)
 actions.click(elem).perform()
 elem2 = driver.find_element_by_xpath("""//*[@id="playlist"]/div/div[1]/div/div[2]/a[2]""").click()
 po = driver.find_element_by_class_name("artist").text
 po1 = driver.find_element_by_class_name("song").text
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -61,7 +65,7 @@ class Ui_MainWindow(object):
 "background:#0fb9b1;\n"
 "}")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-new-100 (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-new-100 (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.popnew.setIcon(icon)
         self.popnew.setIconSize(QtCore.QSize(23, 28))
         self.popnew.setObjectName("popnew")
@@ -80,7 +84,7 @@ class Ui_MainWindow(object):
 "background:#0fb9b1;\n"
 "}")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-micro-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-micro-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.artist.setIcon(icon1)
         self.artist.setIconSize(QtCore.QSize(23, 23))
         self.artist.setObjectName("artist")
@@ -100,7 +104,7 @@ class Ui_MainWindow(object):
 "background:#0fb9b1;\n"
 "}")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-exit-sign-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-exit-sign-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.exit.setIcon(icon2)
         self.exit.setIconSize(QtCore.QSize(22, 25))
         self.exit.setObjectName("exit")
@@ -116,7 +120,7 @@ class Ui_MainWindow(object):
 "background:#850101;\n"
 "}")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-guitar-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-guitar-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.name2.setIcon(icon3)
         self.name2.setIconSize(QtCore.QSize(31, 33))
         self.name2.setObjectName("name2")
@@ -137,7 +141,7 @@ class Ui_MainWindow(object):
 "")
         self.pushButton.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-headphones-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-headphones-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon4)
         self.pushButton.setIconSize(QtCore.QSize(45, 45))
         self.pushButton.setObjectName("pushButton")
@@ -228,7 +232,7 @@ class Ui_MainWindow(object):
 "}")
         self.play.setText("")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-play-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-play-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.play.setIcon(icon5)
         self.play.setIconSize(QtCore.QSize(35, 35))
         self.play.setObjectName("play")
@@ -248,7 +252,7 @@ class Ui_MainWindow(object):
 "}")
         self.download.setText("")
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-downloading-updates-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-downloading-updates-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.download.setIcon(icon6)
         self.download.setIconSize(QtCore.QSize(35, 35))
         self.download.setObjectName("download")
@@ -279,7 +283,7 @@ class Ui_MainWindow(object):
 "}")
         self.Repeat.setText("")
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-sync-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon7.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-sync-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Repeat.setIcon(icon7)
         self.Repeat.setIconSize(QtCore.QSize(35, 35))
         self.Repeat.setObjectName("Repeat")
@@ -296,7 +300,7 @@ class Ui_MainWindow(object):
 "}")
         self.next.setText("")
         icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-fast-forward-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon8.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-fast-forward-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.next.setIcon(icon8)
         self.next.setIconSize(QtCore.QSize(35, 35))
         self.next.setAutoRepeat(False)
@@ -314,7 +318,7 @@ class Ui_MainWindow(object):
 "}")
         self.back.setText("")
         icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-gui/icon/icons8-rewind-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon9.addPixmap(QtGui.QPixmap("/home/sti/radiojavan-Qt/icon/icons8-rewind-100.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.back.setIcon(icon9)
         self.back.setIconSize(QtCore.QSize(35, 35))
         self.back.setAutoRepeat(False)
@@ -357,6 +361,8 @@ class Ui_MainWindow(object):
         self.name7.clicked.connect(self.name7_c)
         self.name8.clicked.connect(self.name8_c)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+
     def name1_c(self):
         dd = driver.find_element_by_xpath("""//*[@id="featured_playlist"]/div/a[1]""").click()
         time.sleep(2)
@@ -567,3 +573,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+driver.close()
