@@ -14,13 +14,18 @@ import sys
 import wget
 import requests
 from bs4 import BeautifulSoup
-
 import selenium.webdriver.opera
 import pyfiglet
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 link = "https://www.radiojavan.com/playlists/playlist/mp3/854b87855624"
-driver = webdriver.Chrome("/home/sti/down_git/chromedriver")
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+chromedriver = dir_path + "/chromedriver"
+os.environ["webdriver.chrome.driver"] = chromedriver
+driver = webdriver.Chrome(chrome_options=options, executable_path=chromedriver)
 driver.get(link)
 driver.set_window_size(800, 700)
 elem = driver.find_element_by_xpath("""//*[@id="navContainer"]/div/a[1]""")

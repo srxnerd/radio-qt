@@ -1,5 +1,11 @@
 Raddiojavan-Qt
 
-play muisc irani
 
- هست radiojavan-cli این برنامه نسخه گرافیکی
+pip install PyQt5
+pip install webdriver
+pip install wget
+
+sudo su
+
+./install.sh
+
